@@ -76,4 +76,4 @@ move = {"N": moveNorth,
 	"E": moveEast,
 	"W": moveWest}
 
-findPath("", x, y, 22)
+findPath("", x, y, path[y][x])
