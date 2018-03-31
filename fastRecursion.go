@@ -62,7 +62,6 @@ func moveWest(x int, y int) Move {
 
 func findPath(moveList string, x int, y int, value int, maxSteps int) string {
 	if x == (len(path[0])-1) && y == 0 && value == targetValue {
-		fmt.Println(strings.Replace(moveList, "E", "O", -1))
 		resultFound = true
 		return moveList
 	} else if len(moveList) >= maxSteps {
@@ -113,16 +112,22 @@ func findPath(moveList string, x int, y int, value int, maxSteps int) string {
 			case -4:
 				tmpValue = value / operand
 			}
-			findPath(moveList+step1+step2, move2.x, move2.y, tmpValue, maxSteps)
+			result := findPath(moveList+step1+step2, move2.x, move2.y, tmpValue, maxSteps)
+			if resultFound{
+				return result
+			}
 		}
 	}
-	return "done"
+	return "error"
 }
 
 func main() {
 	x := 0
 	y := len(path) - 1
 	for maxSteps := 8; !resultFound; maxSteps++ {
-		findPath("", x, y, path[y][x], maxSteps)
+		result := findPath("", x, y, path[y][x], maxSteps)
+		if result != "error"{
+			fmt.Println(strings.Replace(result, "E", "O", -1))
+		}
 	}
 }
